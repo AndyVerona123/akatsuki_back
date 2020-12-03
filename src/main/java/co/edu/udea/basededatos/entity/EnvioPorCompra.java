@@ -3,7 +3,7 @@ package co.edu.udea.basededatos.entity;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "envio_por_compra")
 public class EnvioPorCompra {
 
     @Id
@@ -12,13 +12,10 @@ public class EnvioPorCompra {
     private Long id;
 
     @Column(name="fk_envio", nullable=false)
-    private Long fk_envio;
+    private Long fkEnvio;
 
-    @Column(name="fk_venta", nullable=false)
-    private Long fk_venta;
-
-    @Column(name="estado", nullable=false)
-    private Boolean estado;
+    @Column(name="fk_compra", nullable=false)
+    private Long fkCompra;
 
     // relationships
 
@@ -27,8 +24,46 @@ public class EnvioPorCompra {
     private Envio envio;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="fk_venta", insertable = false, updatable = false)
+    @JoinColumn(name="fk_compra", insertable = false, updatable = false)
     private Compra compra;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getFkEnvio() {
+        return fkEnvio;
+    }
+
+    public void setFkEnvio(Long fkEnvio) {
+        this.fkEnvio = fkEnvio;
+    }
+
+    public Long getFkCompra() {
+        return fkCompra;
+    }
+
+    public void setFkCompra(Long fkCompra) {
+        this.fkCompra = fkCompra;
+    }
+
+    public Envio getEnvio() {
+        return envio;
+    }
+
+    public void setEnvio(Envio envio) {
+        this.envio = envio;
+    }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
 }

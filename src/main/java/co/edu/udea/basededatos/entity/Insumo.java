@@ -22,7 +22,7 @@ public class Insumo {
     private String observacion;
 
     @Column(name="fk_producto", nullable=false)
-    private Long fk_producto;
+    private Long fkProducto;
 
     // relationships
 
@@ -62,12 +62,12 @@ public class Insumo {
         this.observacion = observacion;
     }
 
-    public Long getFk_producto() {
-        return fk_producto;
+    public Long getFkProducto() {
+        return fkProducto;
     }
 
-    public void setFk_producto(Long fk_producto) {
-        this.fk_producto = fk_producto;
+    public void setFkProducto(Long fkProducto) {
+        this.fkProducto = fkProducto;
     }
 
     public Producto getProducto() {

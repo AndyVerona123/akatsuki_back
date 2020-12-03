@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tipoTransporte")
+@Table(name = "tipo_transporte")
 public class TipoTransporte {
 
     @Id
@@ -16,7 +16,7 @@ public class TipoTransporte {
     private String nombre;
 
     @Column(name="fk_administrador", nullable=false)
-    private Long fkadministrador;
+    private Long fkAdministrador;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="fk_administrador", insertable = false, updatable = false)
@@ -38,12 +38,12 @@ public class TipoTransporte {
         this.nombre = nombre;
     }
 
-    public Long getFkadministrador() {
-        return fkadministrador;
+    public Long getFkAdministrador() {
+        return fkAdministrador;
     }
 
-    public void setFkadministrador(Long fkadministrador) {
-        this.fkadministrador = fkadministrador;
+    public void setFkAdministrador(Long fkAdministrador) {
+        this.fkAdministrador = fkAdministrador;
     }
 
     public Usuario getUsuario() {

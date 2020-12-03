@@ -26,7 +26,7 @@ public class Producto {
     private Boolean disponible;
 
     @Column(name="fk_administrador", nullable=false)
-    private Long fk_administrador;
+    private Long fkAdministrador;
 
     // relationships
 
@@ -74,12 +74,12 @@ public class Producto {
         this.observacion = observacion;
     }
 
-    public Long getFk_administrador() {
-        return fk_administrador;
+    public Long getFkAdministrador() {
+        return fkAdministrador;
     }
 
-    public void setFk_administrador(Long fk_administrador) {
-        this.fk_administrador = fk_administrador;
+    public void setFkAdministrador(Long fkAdministrador) {
+        this.fkAdministrador = fkAdministrador;
     }
 
     public Usuario getAdministrador() {

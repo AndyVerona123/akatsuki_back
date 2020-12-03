@@ -9,7 +9,6 @@ public class Transporte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "id")
     private Long id;
 
@@ -17,7 +16,7 @@ public class Transporte {
     private String placa;
 
     @Column(name="fk_tipo_transporte", nullable=false)
-    private Long fk_tipotransporte;
+    private Long fkTipoTransporte;
 
     //relationships
 
@@ -41,12 +40,12 @@ public class Transporte {
         this.placa = placa;
     }
 
-    public Long getFk_tipotransporte() {
-        return fk_tipotransporte;
+    public Long getFkTipoTransporte() {
+        return fkTipoTransporte;
     }
 
-    public void setFk_tipotransporte(Long fk_tipotransporte) {
-        this.fk_tipotransporte = fk_tipotransporte;
+    public void setFkTipoTransporte(Long fkTipoTransporte) {
+        this.fkTipoTransporte = fkTipoTransporte;
     }
 
     public TipoTransporte getTipoTransporte() {

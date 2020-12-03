@@ -1,5 +1,8 @@
 package co.edu.udea.basededatos.entity;
 
+import co.edu.udea.basededatos.util.enums.EstadoCompraEnum;
+import co.edu.udea.basededatos.util.enums.TipoUsuario;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,22 +17,23 @@ public class Compra {
     private Long id;
 
     @Column(name="valor_total", nullable=false)
-    private BigDecimal valor_total;
+    private BigDecimal valorTotal;
 
     @Column(name="cantidad", nullable = false)
     private Integer cantidad;
 
     @Column(name="fecha_venta", nullable=false)
-    private LocalDate fecha_venta;
+    private LocalDate fechaVenta;
 
-    @Column(name="estado", nullable=false)
-    private Boolean estado;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false)
+    private EstadoCompraEnum estado;
 
     @Column(name="fk_cliente", nullable=false)
-    private Long fk_cliente;
+    private Long fkCliente;
 
     @Column(name="fk_producto", nullable=false)
-    private Long fk_producto;
+    private Long fkProducto;
 
     // relationships
 
@@ -49,12 +53,12 @@ public class Compra {
         this.id = id;
     }
 
-    public BigDecimal getValor_total() {
-        return valor_total;
+    public BigDecimal getValorTotal() {
+        return valorTotal;
     }
 
-    public void setValor_total(BigDecimal valor_total) {
-        this.valor_total = valor_total;
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public Integer getCantidad() {
@@ -65,36 +69,36 @@ public class Compra {
         this.cantidad = cantidad;
     }
 
-    public LocalDate getFecha_venta() {
-        return fecha_venta;
+    public LocalDate getFechaVenta() {
+        return fechaVenta;
     }
 
-    public void setFecha_venta(LocalDate fecha_venta) {
-        this.fecha_venta = fecha_venta;
+    public void setFechaVenta(LocalDate fechaVenta) {
+        this.fechaVenta = fechaVenta;
     }
 
-    public Boolean getEstado() {
+    public EstadoCompraEnum getEstado() {
         return estado;
     }
 
-    public void setEstado(Boolean estado) {
+    public void setEstado(EstadoCompraEnum estado) {
         this.estado = estado;
     }
 
-    public Long getFk_cliente() {
-        return fk_cliente;
+    public Long getFkCliente() {
+        return fkCliente;
     }
 
-    public void setFk_cliente(Long fk_cliente) {
-        this.fk_cliente = fk_cliente;
+    public void setFkCliente(Long fkCliente) {
+        this.fkCliente = fkCliente;
     }
 
-    public Long getFk_producto() {
-        return fk_producto;
+    public Long getFkProducto() {
+        return fkProducto;
     }
 
-    public void setFk_producto(Long fk_producto) {
-        this.fk_producto = fk_producto;
+    public void setFkProducto(Long fkProducto) {
+        this.fkProducto = fkProducto;
     }
 
     public Usuario getCliente() {
