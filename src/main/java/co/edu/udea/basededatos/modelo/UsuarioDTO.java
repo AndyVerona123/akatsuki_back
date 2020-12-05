@@ -1,65 +1,35 @@
-package co.edu.udea.basededatos.entity;
+package co.edu.udea.basededatos.modelo;
 
 import co.edu.udea.basededatos.util.enums.TipoUsuario;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "usuario")
-public class Usuario {
+public class UsuarioDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "correo", nullable = false, length = 100, unique = true)
+    @NotNull
     private String correo;
-
-    @Column(name = "contrasena", nullable = false, length = 50)
+    @NotNull
     private String contrasena;
-
-    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
-
-    @Column(name = "celular")
     private String celular;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false)
+    @NotNull
     private TipoUsuario tipo;
 
     //Cliente
 
-    @Column(name = "fecha_ingreso")
     private LocalDate fechaIngreso;
-
-    @Column(name = "fk_ciudad_cliente")
     private Long fkCiudadCliente;
-
-    @Column(name = "fk_administrador")
     private Long fkAdministrador;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_ciudad_cliente", insertable = false, updatable = false)
-    private Ciudad ciudadCliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_administrador", insertable = false, updatable = false)
-    private Usuario administrador;
+    private CiudadDTO ciudadCliente;
+    private UsuarioDTO administrador;
 
     //Administrador
 
-    @Column(name = "nombre_empresa", length = 200)
     private String nombreEmpresa;
-
-    @Column(name = "fk_ciudad_administrador")
     private Long fkCiudadAdministrador;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_ciudad_administrador", insertable = false, updatable = false)
-    private Ciudad ciudadAdministrador;
+    private CiudadDTO ciudadAdministrador;
 
     public Long getId() {
         return id;
@@ -133,19 +103,19 @@ public class Usuario {
         this.fkAdministrador = fkAdministrador;
     }
 
-    public Ciudad getCiudadCliente() {
+    public CiudadDTO getCiudadCliente() {
         return ciudadCliente;
     }
 
-    public void setCiudadCliente(Ciudad ciudadCliente) {
+    public void setCiudadCliente(CiudadDTO ciudadCliente) {
         this.ciudadCliente = ciudadCliente;
     }
 
-    public Usuario getAdministrador() {
+    public UsuarioDTO getAdministrador() {
         return administrador;
     }
 
-    public void setAdministrador(Usuario administrador) {
+    public void setAdministrador(UsuarioDTO administrador) {
         this.administrador = administrador;
     }
 
@@ -165,11 +135,11 @@ public class Usuario {
         this.fkCiudadAdministrador = fkCiudadAdministrador;
     }
 
-    public Ciudad getCiudadAdministrador() {
+    public CiudadDTO getCiudadAdministrador() {
         return ciudadAdministrador;
     }
 
-    public void setCiudadAdministrador(Ciudad ciudadAdministrador) {
+    public void setCiudadAdministrador(CiudadDTO ciudadAdministrador) {
         this.ciudadAdministrador = ciudadAdministrador;
     }
 }

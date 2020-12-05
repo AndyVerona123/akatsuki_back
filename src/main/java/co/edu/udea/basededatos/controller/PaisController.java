@@ -33,8 +33,8 @@ public class PaisController {
             @ApiResponse(code = 200, message = "Se guardó exitosamente"),
             @ApiResponse(code = 400, message = "La petición es inválida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<PaisDTO>> guardarPais(@Valid @RequestBody PaisDTO user) {
-        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("pais.guardar.exito"), paisFacade.guardarPais(user)));
+    public ResponseEntity<StandardResponse<PaisDTO>> guardarPais(@Valid @RequestBody PaisDTO pais) {
+        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("pais.guardar.exito"), paisFacade.guardarPais(pais)));
 
     }
 
