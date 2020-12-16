@@ -10,12 +10,12 @@ public class UsuarioDTO {
     private Long id;
     @NotNull
     private String correo;
-    @NotNull
     private String contrasena;
     private LocalDate fechaNacimiento;
     private String celular;
     @NotNull
     private TipoUsuario tipo;
+    private String nombre;
 
     //Cliente
 
@@ -141,5 +141,13 @@ public class UsuarioDTO {
 
     public void setCiudadAdministrador(CiudadDTO ciudadAdministrador) {
         this.ciudadAdministrador = ciudadAdministrador;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

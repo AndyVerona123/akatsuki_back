@@ -7,6 +7,7 @@ import co.edu.udea.basededatos.util.Messages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -46,5 +47,9 @@ public class CiudadService {
     public void eliminarCiudad(Long id){
         consultarPorId(id);
         ciudadRepository.deleteById(id);
+    }
+
+    public List<Ciudad> buscarTodas(){
+        return ciudadRepository.findAll();
     }
 }

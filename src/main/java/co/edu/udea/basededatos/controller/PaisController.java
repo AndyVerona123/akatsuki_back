@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pais")
@@ -36,6 +37,7 @@ public class PaisController {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("pais.guardar.exito"), paisFacade.guardarPais(pais)));
 
     }
+
     @PutMapping
     @ApiOperation(value = "Permite actualizar un pais", response = PaisDTO.class)
     @ApiResponses(value = {
@@ -69,5 +71,15 @@ public class PaisController {
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
     public ResponseEntity<StandardResponse<PaisDTO>> consultarPorId(@PathVariable Long codigoPais) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, paisFacade.consultarPorId(codigoPais)));
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Permite buscar todos los países", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Los países se consultaron correctamente"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
+    public ResponseEntity<StandardResponse<List<PaisDTO>>> buscarTodos() {
+        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, paisFacade.buscarTodos()));
     }
 }

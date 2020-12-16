@@ -3,6 +3,8 @@ package co.edu.udea.basededatos.facade;
 import co.edu.udea.basededatos.mapper.UsuarioMapper;
 import co.edu.udea.basededatos.modelo.UsuarioDTO;
 import co.edu.udea.basededatos.service.UsuarioService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,14 @@ public class UsuarioFacade {
 
     public UsuarioDTO consultarPorId(Long id) {
         return usuarioMapper.toDto(usuarioService.consultarPorId(id));
+    }
+
+    public UsuarioDTO buscarUsuarioPorCorreo(String correo, String contrasena) {
+        return usuarioMapper.toDto(usuarioService.buscarUsuarioPorCorreo(correo, contrasena));
+    }
+
+    public Page<UsuarioDTO> buscarUsuarioPorAdmin(Long idAdministrador, String nombre, String correo, Pageable page) {
+        return usuarioService.buscarUsuarioPorAdmin(idAdministrador, nombre, correo, page).map(usuarioMapper::toDto);
     }
 
 }

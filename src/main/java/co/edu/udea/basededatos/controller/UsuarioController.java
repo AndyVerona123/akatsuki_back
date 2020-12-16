@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,6 +71,30 @@ public class UsuarioController {
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
     public ResponseEntity<StandardResponse<UsuarioDTO>> consultarPorId(@PathVariable Long codigoUsuario) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, usuarioFacade.consultarPorId(codigoUsuario)));
+    }
+
+    @GetMapping("iniciar-sesion/{correo}/{contrasena}")
+    @ApiOperation(value = "Permite buscar un usuario por correo y contraseña", response = UsuarioDTO.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "El usuario se consultó correctamente"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
+    public ResponseEntity<StandardResponse<UsuarioDTO>> buscarUsuarioPorCorreo(@PathVariable String correo, @PathVariable String contrasena) {
+        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, usuarioFacade.buscarUsuarioPorCorreo(correo, contrasena)));
+    }
+
+    @GetMapping("filtro-administrador")
+    @ApiOperation(value = "Permite buscar un usuario", response = Page.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "El usuario se consultó correctamente"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
+    public ResponseEntity<StandardResponse<Page<UsuarioDTO>>> buscarUsuarioPorAdmin(
+            @RequestParam(name = "idAdministrador", required = true) Long idAdministrador,
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "correo", required = false) String correo,
+            Pageable page) {
+        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, usuarioFacade.buscarUsuarioPorAdmin(idAdministrador, nombre, correo, page)));
     }
 
 }
