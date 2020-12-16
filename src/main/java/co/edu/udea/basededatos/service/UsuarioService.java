@@ -5,9 +5,12 @@ import co.edu.udea.basededatos.exception.BusinessException;
 import co.edu.udea.basededatos.repository.UsuarioRepository;
 import co.edu.udea.basededatos.util.Messages;
 import co.edu.udea.basededatos.util.enums.TipoUsuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,9 +28,10 @@ public class UsuarioService {
 
     public Usuario guardarUsuario(Usuario usuario) {
         Optional<Usuario> usuarioConsulta = usuarioRepository.findByCorreo(usuario.getCorreo());
-        if(usuarioConsulta.isPresent()){
+        if (usuarioConsulta.isPresent()) {
             throw new BusinessException(messages.get("usuario.correo.duplicado"));
         }
+        usuario.setFechaIngreso(LocalDate.now());
         validarTipo(usuario);
         return usuarioRepository.save(usuario);
     }
@@ -42,12 +46,7 @@ public class UsuarioService {
     }
 
     public void validarTipo(Usuario usuario) {
-        if (usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)) {
-            if (Objects.isNull(usuario.getNombreEmpresa()) ||
-                    Objects.isNull(usuario.getFkCiudadAdministrador())) {
-                throw new BusinessException(messages.get("usuario.informacion.incompleta"));
-            }
-        } else {
+        if (usuario.getTipo().equals(TipoUsuario.CLIENTE)) {
             if (Objects.isNull(usuario.getFechaIngreso()) ||
                     Objects.isNull(usuario.getFkCiudadCliente()) || Objects.isNull(usuario.getFkAdministrador())) {
                 throw new BusinessException(messages.get("usuario.informacion.incompleta"));
@@ -64,4 +63,18 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow(
                 () -> new BusinessException(messages.get("usuario.id.no_encontrado")));
     }
+
+    public Usuario buscarUsuarioPorCorreo(String correo, String contrasena) {
+        Usuario usuarioConsulta = usuarioRepository.findByCorreo(correo).orElseThrow(
+                () -> new BusinessException(messages.get("usuario.correo.no_encontrado")));
+        if (!usuarioConsulta.getContrasena().equals(contrasena)) {
+            throw new BusinessException(messages.get("usuario.contrasena.no_valida"));
+        }
+        return usuarioConsulta;
+    }
+
+    public Page<Usuario> buscarUsuarioPorAdmin(Long idAdministrador, String nombre, String correo, Pageable page) {
+        return usuarioRepository.buscarUsuarioPorAdmin(idAdministrador, nombre != null ? nombre.toUpperCase().trim() : null, correo != null ? correo.trim() : null, page);
+    }
+
 }

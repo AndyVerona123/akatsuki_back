@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ciudad")
@@ -69,5 +70,15 @@ public class CiudadController {
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
     public ResponseEntity<StandardResponse<CiudadDTO>> consultarPorId(@PathVariable Long codigoCiudad) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, ciudadFacade.consultarPorId(codigoCiudad)));
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Permite buscar todas las ciudades", response = List.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Las ciudades se consultaron correctamente"),
+            @ApiResponse(code = 400, message = "La petición es inválida"),
+            @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
+    public ResponseEntity<StandardResponse<List<CiudadDTO>>> buscarTodas() {
+        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, ciudadFacade.buscarTodas()));
     }
 }

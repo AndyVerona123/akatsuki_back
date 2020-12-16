@@ -7,6 +7,7 @@ import co.edu.udea.basededatos.util.Messages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class DepartamentoService {
     public Departamento guardarDepartamento(Departamento departamento) {
 
         Optional<Departamento> paisConsulta = departamentoRepository.findByNombre(departamento.getNombre());
-        if(paisConsulta.isPresent()){
+        if (paisConsulta.isPresent()) {
             throw new BusinessException(messages.get("departamento.nombre.duplicado"));
         }
         return departamentoRepository.save(departamento);
@@ -47,5 +48,9 @@ public class DepartamentoService {
     public Departamento consultarPorId(Long id) {
         return departamentoRepository.findById(id).orElseThrow(
                 () -> new BusinessException(messages.get("departamento.id.no_encontrado")));
+    }
+
+    public List<Departamento> buscarTodos() {
+        return departamentoRepository.findAll();
     }
 }

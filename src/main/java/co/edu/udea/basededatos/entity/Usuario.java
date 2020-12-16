@@ -17,8 +17,11 @@ public class Usuario {
     @Column(name = "correo", nullable = false, length = 100, unique = true)
     private String correo;
 
-    @Column(name = "contrasena", nullable = false, length = 50)
+    @Column(name = "contrasena", length = 50)
     private String contrasena;
+
+    @Column(name = "nombre", nullable = false, length = 200)
+    private String nombre;
 
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
@@ -171,5 +174,13 @@ public class Usuario {
 
     public void setCiudadAdministrador(Ciudad ciudadAdministrador) {
         this.ciudadAdministrador = ciudadAdministrador;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

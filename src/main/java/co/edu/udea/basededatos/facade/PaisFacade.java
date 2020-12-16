@@ -6,6 +6,8 @@ import co.edu.udea.basededatos.service.PaisService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PaisFacade {
@@ -21,6 +23,7 @@ public class PaisFacade {
     public PaisDTO guardarPais(PaisDTO pais) {
         return paisMapper.toDto(paisService.guardarPais(paisMapper.toEntity(pais)));
     }
+
     public PaisDTO actualizarPais(PaisDTO pais) {
         return paisMapper.toDto(paisService.actualizarPais(paisMapper.toEntity(pais)));
     }
@@ -31,6 +34,10 @@ public class PaisFacade {
 
     public PaisDTO consultarPorId(Long id) {
         return paisMapper.toDto(paisService.consultarPorId(id));
+    }
+
+    public List<PaisDTO> buscarTodos() {
+        return paisMapper.toDto(paisService.buscarTodos());
     }
 
 }

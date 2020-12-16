@@ -6,6 +6,8 @@ import co.edu.udea.basededatos.service.CiudadService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CiudadFacade {
@@ -32,5 +34,9 @@ public class CiudadFacade {
 
     public CiudadDTO consultarPorId(Long id){
         return ciudadMapper.toDto(ciudadService.consultarPorId(id));
+    }
+
+    public List<CiudadDTO> buscarTodas(){
+        return ciudadMapper.toDto(ciudadService.buscarTodas());
     }
 }

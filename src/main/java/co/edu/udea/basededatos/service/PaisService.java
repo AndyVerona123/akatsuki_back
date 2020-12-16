@@ -7,7 +7,7 @@ import co.edu.udea.basededatos.util.Messages;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public class PaisService {
     public Pais guardarPais(Pais pais) {
 
         Optional<Pais> paisConsulta = paisRepository.findByNombre(pais.getNombre());
-        if(paisConsulta.isPresent()){
+        if (paisConsulta.isPresent()) {
             throw new BusinessException(messages.get("pais.nombre.duplicado"));
         }
         return paisRepository.save(pais);
@@ -49,5 +49,9 @@ public class PaisService {
     public Pais consultarPorId(Long id) {
         return paisRepository.findById(id).orElseThrow(
                 () -> new BusinessException(messages.get("pais.id.no_encontrado")));
+    }
+
+    public List<Pais> buscarTodos() {
+        return paisRepository.findAll();
     }
 }
